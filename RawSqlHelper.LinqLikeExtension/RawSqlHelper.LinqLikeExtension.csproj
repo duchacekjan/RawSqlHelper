@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;netstandard2.0;net48;net40</TargetFrameworks>
@@ -6,7 +6,7 @@
     <Authors>Jan Duchacek</Authors>
     <Company>JGS</Company>
     <Product>Raw sql helper</Product>
-    <Description>Helper for building sql query from string</Description>
+    <Description>Extension for SqlQueryBuilder. Enables writes linq like methods</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
     <Version>1.0.0-alpha02</Version>
@@ -16,16 +16,5 @@
     <PackageReleaseNotes>Initialiazation of project. Added licence and icon to package</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="licence.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="SQL Icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>
