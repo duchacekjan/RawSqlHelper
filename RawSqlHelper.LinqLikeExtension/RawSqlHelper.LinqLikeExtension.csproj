@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
     <Version>1.0.0-alpha02</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
-    <PackageIcon>SQL Icon.png</PackageIcon>
+    <PackageIcon>LinqLikeExtension.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>Initialiazation of project. Added licence and icon to package</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -23,6 +23,10 @@
 
   <ItemGroup>
     <None Include="licence.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="LinqLikeExtension.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
