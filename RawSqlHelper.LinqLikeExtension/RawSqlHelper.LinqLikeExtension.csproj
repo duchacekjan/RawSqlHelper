@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;netstandard2.0;net48;net40</TargetFrameworks>
@@ -19,6 +19,13 @@
 
   <ItemGroup>
     <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha02" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="licence.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
