@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RawSqlHelper.LinqLikeExtension
+namespace RawSqlHelper.Enhancers.LinqLikeExtension
 {
     /// <summary>
     /// Builder for creating parameters for 'ORDER BY' clause
