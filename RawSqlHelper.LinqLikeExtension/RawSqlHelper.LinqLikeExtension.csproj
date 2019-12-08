@@ -9,12 +9,14 @@
     <Description>Extension for SqlQueryBuilder. Enables writes linq like methods</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
-    <Version>1.0.0-alpha02</Version>
+    <Version>1.0.0-alpha03</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
     <PackageIcon>LinqLikeExtension.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>Initialiazation of project. Added licence and icon to package</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/duchacekjan/RawSqlHelper.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
