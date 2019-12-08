@@ -9,11 +9,11 @@
     <Description>Helper for building sql query from string</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
-    <Version>1.0.0-alpha05</Version>
+    <Version>1.0.0-alpha06</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
     <PackageIcon>SQL Icon.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>Created AQueryPartBuilder for easier merging with enhancers</PackageReleaseNotes>
+    <PackageReleaseNotes>AQueryPartBuilder extended for returning value prefixed with desired keyword</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/duchacekjan/RawSqlHelper.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

@@ -66,13 +66,8 @@
         /// <returns></returns>
         public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, string column)
         {
-            if (string.IsNullOrEmpty(column))
-            {
-                throw new System.ArgumentNullException(column);
-            }
-
-            var orderBy = $"{OrderByKey} {column}";
-            return builder.Add(orderBy);
+            var orderByBuilder = Enhancers.OrderByBuilder.OrderBy(column);
+            return builder.OrderBy(orderByBuilder);
         }
 
         /// <summary>
@@ -84,6 +79,22 @@
         {
             var statement = string.Join(CommaSeparator, columns);
             return builder.OrderBy(statement);
+        }
+
+        /// <summary>
+        /// Adds 'ORDER BY' statement with parameters created in <paramref name="orderByBuilder"/>
+        /// </summary>
+        /// <param name="orderByBuilder">Parameter builder</param>
+        /// <returns></returns>
+        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, Enhancers.OrderByBuilder orderByBuilder)
+        {
+            if (orderByBuilder == null)
+            {
+                throw new System.ArgumentNullException(nameof(orderByBuilder));
+            }
+
+            var orderBy = orderByBuilder.WithKeyword(OrderByKey);
+            return builder.Add(orderBy);
         }
     }
 }

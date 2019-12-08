@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using LLE = RawSqlHelper.LinqLikeExtension.LinqLikeExtension;
 
-namespace RawSqlHelper.LinqLikeExtension
+namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
     /// <summary>
     /// Builder for creating parameters for 'ORDER BY' clause
     /// </summary>
-    public class OrderByBuilder
+    public class OrderByBuilder : AQueryPartBuilder
     {
         private readonly Dictionary<string, OrderDirection> m_columns = new Dictionary<string, OrderDirection>();
 
@@ -38,7 +39,7 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <summary>
         /// Parameters for 'ORDER BY'
         /// </summary>
-        public string Columns => GetColumns();
+        public override string Value => GetColumns();
 
         /// <summary>
         /// First column sorted with ascending direction
@@ -81,15 +82,6 @@ namespace RawSqlHelper.LinqLikeExtension
         }
 
         /// <summary>
-        /// Returns <see cref="Columns"/>
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return Columns;
-        }
-
-        /// <summary>
         /// Adds column with sorting direction to list
         /// </summary>
         /// <param name="columnName">Name of column</param>
@@ -97,6 +89,11 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <returns></returns>
         private OrderByBuilder Add(string columnName, OrderDirection direction)
         {
+            if (string.IsNullOrEmpty(columnName))
+            {
+                throw new System.ArgumentNullException(columnName);
+            }
+
             m_columns.Add(columnName, direction);
             return this;
         }
@@ -114,7 +111,7 @@ namespace RawSqlHelper.LinqLikeExtension
                 columns.Add(GetColumn(columnName, m_columns[columnName]));
             }
 
-            return columns.StringJoin(LinqLikeExtension.CommaSeparator);
+            return columns.StringJoin(LLE.CommaSeparator);
         }
 
         /// <summary>

@@ -9,11 +9,11 @@
     <Description>Extension for SqlQueryBuilder. Enables writes linq like methods</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
-    <Version>1.0.0-alpha04</Version>
+    <Version>1.0.0-alpha05</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
     <PackageIcon>LinqLikeExtension.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>Initialiazation of project. Added licence and icon to package</PackageReleaseNotes>
+    <PackageReleaseNotes>OrderByBuilder derives from AQueryPartBuilder. Added support to LinqLikeExtension for using this builder to builde OrderBy statements</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/duchacekjan/RawSqlHelper.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha04" />
+    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha06" />
   </ItemGroup>
 
   <ItemGroup>
