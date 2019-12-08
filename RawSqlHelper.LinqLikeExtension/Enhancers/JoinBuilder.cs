@@ -4,6 +4,14 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
     public class JoinBuilder : AQueryPartBuilder
     {
+        public const string JoinKey = "JOIN";
+        public const string InnerKey = "INNER";
+        public const string OuterKey = "OUTER";
+        public const string LeftKey = "LEFT";
+        public const string RightKey = "RIGHT";
+        public const string OnKey = "ON";
+        public const string AndKey = "AND";
+
         private readonly string m_keyWord;
         private readonly string m_tableName;
         private string m_on;
@@ -63,7 +71,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
 
         private JoinBuilder On(params string[] conditions)
         {
-            m_on = conditions.StringJoin(" AND ");
+            m_on = conditions.StringJoin($" {AndKey} ");
             return this;
         }
 
@@ -85,16 +93,16 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             var direction = string.Empty;
             if (isLeft.HasValue)
             {
-                direction = isLeft.Value ? "LEFT" : "RIGHT";
+                direction = isLeft.Value ? LeftKey : RightKey;
             }
 
             var inner = string.Empty;
             if (isInner.HasValue)
             {
-                inner = isInner.Value ? "INNER" : "OUTER";
+                inner = isInner.Value ? InnerKey : OuterKey;
             }
 
-            var keyword = $"{direction} {inner} JOIN";
+            var keyword = $"{direction} {inner} {JoinKey}";
 
             return keyword.Trim();
         }
@@ -103,9 +111,9 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         {
             if(string.IsNullOrEmpty(m_on))
             {
-                throw new ArgumentOutOfRangeException(nameof(On), "Condition 'On' is not defined");
+                throw new ArgumentOutOfRangeException(nameof(On), $"Condition '{OnKey}' is not defined.");
             }
-            return $"{m_keyWord} {m_tableName} ON {m_on}";
+            return $"{m_keyWord} {m_tableName} {OnKey} {m_on}";
         }
     }
 }
