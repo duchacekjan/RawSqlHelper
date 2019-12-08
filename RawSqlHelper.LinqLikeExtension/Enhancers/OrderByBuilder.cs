@@ -15,7 +15,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="columnName"></param>
         /// <param name="direction"></param>
-        private OrderByBuilder(string columnName, OrderDirection direction)
+        protected OrderByBuilder(string columnName, OrderDirection direction)
         {
             Add(columnName, direction);
         }
@@ -23,7 +23,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <summary>
         /// Direction of ordering
         /// </summary>
-        private enum OrderDirection
+        protected enum OrderDirection
         {
             /// <summary>
             /// Ascending order

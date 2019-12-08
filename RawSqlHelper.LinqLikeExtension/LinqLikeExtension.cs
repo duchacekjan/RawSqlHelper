@@ -1,13 +1,10 @@
-﻿using e = RawSqlHelper.LinqLikeExtension.Enhancers;
-
-namespace RawSqlHelper.LinqLikeExtension
+﻿namespace RawSqlHelper.LinqLikeExtension
 {
-    public static class LinqLikeExtension
+    public static partial class LinqLikeExtension
     {
         public const string SelectKey = "SELECT";
         public const string FromKey = "FROM";
         public const string WhereKey = "WHERE";
-        public const string OrderByKey = "ORDER BY";
         public const string CommaSeparator = ", ";
         /// <summary>
         /// Adds 'SELECT' statement. If <paramref name="fields"/> is <see langword="null"/> or empty, then '*' value used
@@ -59,44 +56,6 @@ namespace RawSqlHelper.LinqLikeExtension
 
             var where = $"{WhereKey} {condition}";
             return builder.Add(where);
-        }
-
-        /// <summary>
-        /// Adds 'ORDER BY' statement with <paramref name="column"/>
-        /// </summary>
-        /// <param name="column">Name of column with direction of sorting</param>
-        /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, string column)
-        {
-            var orderByBuilder = e.OrderByBuilder.OrderBy(column);
-            return builder.OrderBy(orderByBuilder);
-        }
-
-        /// <summary>
-        /// Adds 'ORDER BY' statement with <paramref name="columns"/>
-        /// </summary>
-        /// <param name="columns">Names of columns with directions of sorting</param>
-        /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, params string[] columns)
-        {
-            var statement = string.Join(CommaSeparator, columns);
-            return builder.OrderBy(statement);
-        }
-
-        /// <summary>
-        /// Adds 'ORDER BY' statement with parameters created in <paramref name="orderByBuilder"/>
-        /// </summary>
-        /// <param name="orderByBuilder">Parameter builder</param>
-        /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, e.OrderByBuilder orderByBuilder)
-        {
-            if (orderByBuilder == null)
-            {
-                throw new System.ArgumentNullException(nameof(orderByBuilder));
-            }
-
-            var orderBy = orderByBuilder.WithKeyword(OrderByKey);
-            return builder.Add(orderBy);
         }
     }
 }

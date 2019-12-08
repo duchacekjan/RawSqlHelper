@@ -1,6 +1,6 @@
 ﻿namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
-    public class JoinBuilderEx : JoinBuilder
+    public class JoinBuilderEx : JoinBuilder, ISqlQueryBuilderConvertible
     {
         private readonly SqlQueryBuilder m_builder;
 
