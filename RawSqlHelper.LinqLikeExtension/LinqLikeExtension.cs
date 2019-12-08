@@ -96,5 +96,10 @@
             var orderBy = orderByBuilder.WithKeyword(OrderByKey);
             return builder.Add(orderBy);
         }
+
+        public static SqlQueryBuilder Join(this SqlQueryBuilder builder, Enhancers.JoinBuilder joinBuilder)
+        {
+            return builder.Add(joinBuilder);
+        }
     }
 }
