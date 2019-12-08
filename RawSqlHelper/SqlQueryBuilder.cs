@@ -93,6 +93,15 @@ namespace RawSqlHelper
         }
 
         /// <summary>
+        /// Adds content of builder
+        /// </summary>
+        /// <param name="builder">Builder</param>
+        public SqlQueryBuilder Add(AQueryPartBuilder builder)
+        {
+            return Add(builder.Value);
+        }
+
+        /// <summary>
         /// Adds new entry of sql query with parameters to replace
         /// </summary>
         /// <param name="row">Entry of sql query with parameters to replace</param>
