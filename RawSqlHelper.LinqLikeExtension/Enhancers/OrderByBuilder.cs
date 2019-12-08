@@ -89,6 +89,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <returns></returns>
         private OrderByBuilder Add(string columnName, OrderDirection direction)
         {
+            if (string.IsNullOrEmpty(columnName))
+            {
+                throw new System.ArgumentNullException(columnName);
+            }
+
             m_columns.Add(columnName, direction);
             return this;
         }
