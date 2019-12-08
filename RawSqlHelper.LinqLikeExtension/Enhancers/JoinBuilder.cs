@@ -16,7 +16,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         private readonly string m_tableName;
         private string m_on;
 
-        private JoinBuilder(bool? isLeft, bool? isInner, string tableName, string alias, bool isSubSelect)
+        protected JoinBuilder(bool? isLeft, bool? isInner, string tableName, string alias, bool isSubSelect)
         {
             m_keyWord = CreateKeyword(isLeft, isInner);
             m_tableName = CreateTableWithAlias(tableName, alias, isSubSelect);
@@ -69,7 +69,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             return new JoinBuilder(null, false, tableName, alias, isSubSelect);
         }
 
-        private JoinBuilder On(params string[] conditions)
+        public JoinBuilder On(params string[] conditions)
         {
             m_on = conditions.StringJoin($" {AndKey} ");
             return this;
@@ -109,7 +109,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
 
         private string GetValue()
         {
-            if(string.IsNullOrEmpty(m_on))
+            if (string.IsNullOrEmpty(m_on))
             {
                 throw new ArgumentOutOfRangeException(nameof(On), $"Condition '{OnKey}' is not defined.");
             }

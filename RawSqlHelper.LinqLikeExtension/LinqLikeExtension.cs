@@ -1,4 +1,6 @@
-﻿namespace RawSqlHelper.LinqLikeExtension
+﻿using e = RawSqlHelper.LinqLikeExtension.Enhancers;
+
+namespace RawSqlHelper.LinqLikeExtension
 {
     public static class LinqLikeExtension
     {
@@ -66,7 +68,7 @@
         /// <returns></returns>
         public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, string column)
         {
-            var orderByBuilder = Enhancers.OrderByBuilder.OrderBy(column);
+            var orderByBuilder = e.OrderByBuilder.OrderBy(column);
             return builder.OrderBy(orderByBuilder);
         }
 
@@ -86,7 +88,7 @@
         /// </summary>
         /// <param name="orderByBuilder">Parameter builder</param>
         /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, Enhancers.OrderByBuilder orderByBuilder)
+        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, e.OrderByBuilder orderByBuilder)
         {
             if (orderByBuilder == null)
             {
@@ -95,11 +97,6 @@
 
             var orderBy = orderByBuilder.WithKeyword(OrderByKey);
             return builder.Add(orderBy);
-        }
-
-        public static SqlQueryBuilder Join(this SqlQueryBuilder builder, Enhancers.JoinBuilder joinBuilder)
-        {
-            return builder.Add(joinBuilder);
         }
     }
 }
