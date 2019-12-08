@@ -8,7 +8,7 @@
         /// <summary>
         /// Resulted part SQL Query
         /// </summary>
-        protected abstract string Value { get; set; }
+        public abstract string Value { get; }
 
         /// <summary>
         /// Returns <see cref="Value"/>
