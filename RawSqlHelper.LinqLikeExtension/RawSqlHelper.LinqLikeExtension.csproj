@@ -9,12 +9,12 @@
     <Description>Extension for SqlQueryBuilder. Enables writes linq like methods</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
-    <Version>1.0.0-alpha05</Version>
+    <Version>1.0.0-alpha06</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
     <PackageIcon>LinqLikeExtension.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>OrderByBuilder derives from AQueryPartBuilder. Added support to LinqLikeExtension for using this builder to builde OrderBy statements</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/duchacekjan/RawSqlHelper.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
@@ -22,10 +22,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha06" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="licence.txt">
@@ -36,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha09" />
   </ItemGroup>
 
 </Project>
