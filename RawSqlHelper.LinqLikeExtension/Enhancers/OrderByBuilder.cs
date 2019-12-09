@@ -4,12 +4,11 @@ using LLE = RawSqlHelper.LinqLikeExtension.LinqLikeExtension;
 namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
     /// <summary>
-    /// Builder for creating parameters for 'ORDER BY' clause
+    /// Builder for creating 'ORDER BY' clause
     /// </summary>
-    public class OrderByBuilder : AQueryPartBuilder, ISqlQueryBuilderConvertible
+    public class OrderByBuilder : AQueryPartBuilder
     {
         public const string OrderByKey = "ORDER BY";
-        private readonly SqlQueryBuilder m_builder;
         private readonly Dictionary<string, OrderDirection> m_columns = new Dictionary<string, OrderDirection>();
 
         /// <summary>
@@ -19,8 +18,8 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="columnName"></param>
         /// <param name="direction"></param>
         protected OrderByBuilder(SqlQueryBuilder builder, string columnName, OrderDirection direction)
+            : base(builder)
         {
-            m_builder = builder ?? throw new System.ArgumentNullException(nameof(builder));
             Add(columnName, direction);
         }
 
@@ -43,12 +42,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <summary>
         /// Parameters for 'ORDER BY'
         /// </summary>
-        public override string Value => GetColumns();
-
-        /// <summary>
-        /// Entire builded SQL query
-        /// </summary>
-        public string SqlQuery => ToSqlQueryBuilder().SqlQuery;
+        public override string Value => GetValue();
 
         /// <summary>
         /// First column sorted with ascending direction
@@ -93,15 +87,6 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         }
 
         /// <summary>
-        /// Method returns <see cref="SqlQueryBuilder"/>
-        /// </summary>
-        /// <returns></returns>
-        public SqlQueryBuilder ToSqlQueryBuilder()
-        {
-            return m_builder.Add(WithKeyword(OrderByKey));
-        }
-
-        /// <summary>
         /// Creates string value from column name and its sorting direction
         /// </summary>
         /// <param name="columnName">Name of column</param>
@@ -128,6 +113,21 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
 
             m_columns.Add(columnName, direction);
             return this;
+        }
+
+        /// <summary>
+        /// Creates 'ORDER BY' statement
+        /// </summary>
+        /// <returns></returns>
+        private string GetValue()
+        {
+            var columns = GetColumns();
+            if (string.IsNullOrEmpty(columns))
+            {
+                throw new RequiredPartNotDefinedException(OrderByKey);
+            }
+
+            return $"{OrderByKey} {columns}";
         }
 
         /// <summary>

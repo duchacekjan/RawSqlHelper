@@ -24,10 +24,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha06" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="licence.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -36,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha08" />
   </ItemGroup>
 
 </Project>

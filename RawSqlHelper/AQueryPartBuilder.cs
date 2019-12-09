@@ -13,7 +13,7 @@
         /// <param name="builder"></param>
         protected AQueryPartBuilder(SqlQueryBuilder builder)
         {
-            m_builder = builder;
+            m_builder = builder ?? throw new System.ArgumentNullException(nameof(builder)); ;
         }
 
         /// <summary>
