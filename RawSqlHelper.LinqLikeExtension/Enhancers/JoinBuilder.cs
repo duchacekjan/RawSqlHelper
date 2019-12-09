@@ -2,7 +2,7 @@
 
 namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
-    public class JoinBuilder : AQueryPartBuilder
+    public class JoinBuilder : AQueryPartBuilder, ISqlQueryBuilderConvertible
     {
         public const string JoinKey = "JOIN";
         public const string InnerKey = "INNER";
@@ -14,65 +14,27 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
 
         private readonly string m_keyWord;
         private readonly string m_tableName;
+        private readonly SqlQueryBuilder m_builder;
         private string m_on;
 
-        protected JoinBuilder(bool? isLeft, bool? isInner, string tableName, string alias, bool isSubSelect)
+        internal JoinBuilder(SqlQueryBuilder builder, bool? isLeft, bool? isInner, string tableName, string alias, bool isSubSelect)
         {
+            m_builder = builder ?? throw new ArgumentNullException(nameof(builder));
             m_keyWord = CreateKeyword(isLeft, isInner);
             m_tableName = CreateTableWithAlias(tableName, alias, isSubSelect);
         }
 
         public override string Value => GetValue();
 
-        public static JoinBuilder Join(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(null, null, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder LeftJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(true, null, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder LeftInnerJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(true, true, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder LeftOuterJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(true, false, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder RightJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(false, null, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder RightInnerJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(false, true, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder RightOuterJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(false, false, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder InnerJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(null, true, tableName, alias, isSubSelect);
-        }
-
-        public static JoinBuilder OuterJoin(string tableName, string alias = null, bool isSubSelect = false)
-        {
-            return new JoinBuilder(null, false, tableName, alias, isSubSelect);
-        }
-
         public JoinBuilder On(params string[] conditions)
         {
             m_on = conditions.StringJoin($" {AndKey} ");
             return this;
+        }
+
+        public SqlQueryBuilder ToSqlQueryBuilder()
+        {
+            return m_builder.Add(Value);
         }
 
         private static string CreateTableWithAlias(string tableName, string alias, bool isSubSelect)

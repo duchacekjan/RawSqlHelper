@@ -6,17 +6,21 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
     /// <summary>
     /// Builder for creating parameters for 'ORDER BY' clause
     /// </summary>
-    public class OrderByBuilder : AQueryPartBuilder
+    public class OrderByBuilder : AQueryPartBuilder, ISqlQueryBuilderConvertible
     {
+        public const string OrderByKey = "ORDER BY";
+        private readonly SqlQueryBuilder m_builder;
         private readonly Dictionary<string, OrderDirection> m_columns = new Dictionary<string, OrderDirection>();
 
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="builder"></param>
         /// <param name="columnName"></param>
         /// <param name="direction"></param>
-        protected OrderByBuilder(string columnName, OrderDirection direction)
+        protected OrderByBuilder(SqlQueryBuilder builder, string columnName, OrderDirection direction)
         {
+            m_builder = builder ?? throw new System.ArgumentNullException(nameof(builder));
             Add(columnName, direction);
         }
 
@@ -44,21 +48,23 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <summary>
         /// First column sorted with ascending direction
         /// </summary>
+        /// <param name="builder"></param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public static OrderByBuilder OrderBy(string columnName)
+        internal static OrderByBuilder OrderBy(SqlQueryBuilder builder, string columnName)
         {
-            return new OrderByBuilder(columnName, OrderDirection.Ascending);
+            return new OrderByBuilder(builder, columnName, OrderDirection.Ascending);
         }
 
         /// <summary>
         /// First column sorted with descending direction
         /// </summary>
+        /// <param name="builder"></param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public static OrderByBuilder OrderByDesc(string columnName)
+        internal static OrderByBuilder OrderByDesc(SqlQueryBuilder builder, string columnName)
         {
-            return new OrderByBuilder(columnName, OrderDirection.Descending);
+            return new OrderByBuilder(builder, columnName, OrderDirection.Descending);
         }
 
         /// <summary>
@@ -79,6 +85,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         public OrderByBuilder ThenByDesc(string columnName)
         {
             return Add(columnName, OrderDirection.Descending);
+        }
+
+        public SqlQueryBuilder ToSqlQueryBuilder()
+        {
+            return m_builder.Add(WithKeyword(OrderByKey));
         }
 
         /// <summary>
