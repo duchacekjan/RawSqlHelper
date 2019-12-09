@@ -1,4 +1,4 @@
-﻿namespace RawSqlHelper.LinqLikeExtension.Enhancers
+﻿namespace RawSqlHelper
 {
     /// <summary>
     /// Interface, that ensures that class in convertible to <see cref="SqlQueryBuilder"/>

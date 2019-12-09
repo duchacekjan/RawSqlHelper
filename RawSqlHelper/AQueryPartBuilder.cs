@@ -3,12 +3,37 @@
     /// <summary>
     /// Base for builders, which participates in building raw SQL query
     /// </summary>
-    public abstract class AQueryPartBuilder
+    public abstract class AQueryPartBuilder : ISqlQueryBuilderConvertible
     {
+        private readonly SqlQueryBuilder m_builder;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="builder"></param>
+        protected AQueryPartBuilder(SqlQueryBuilder builder)
+        {
+            m_builder = builder;
+        }
+
         /// <summary>
         /// Resulted part SQL Query
         /// </summary>
         public abstract string Value { get; }
+
+        /// <summary>
+        /// Entire builded SQL query
+        /// </summary>
+        public string SqlQuery => ToSqlQueryBuilder().SqlQuery;
+
+        /// <summary>
+        /// Method returns <see cref="SqlQueryBuilder"/>
+        /// </summary>
+        /// <returns></returns>
+        public SqlQueryBuilder ToSqlQueryBuilder()
+        {
+            return m_builder.Add(Value);
+        }
 
         /// <summary>
         /// Returns value prefixed with specified Keyword

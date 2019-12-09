@@ -65,7 +65,7 @@ namespace RawSqlHelper.LinqLikeExtension
             return new e.JoinBuilder(builder, true, true, tableName, alias, true);
         }
         #endregion
-        #region LegtOuterJoin
+        #region LeftOuterJoin
         public static e.JoinBuilder LeftOuterJoin(this SqlQueryBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, false, tableName, null, false);

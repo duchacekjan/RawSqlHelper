@@ -24,7 +24,15 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             m_tableName = CreateTableWithAlias(tableName, alias, isSubSelect);
         }
 
+        /// <summary>
+        /// Builded 'JOIN' statement
+        /// </summary>
         public override string Value => GetValue();
+
+        /// <summary>
+        /// Entire builded SQL query
+        /// </summary>
+        public string SqlQuery => ToSqlQueryBuilder().SqlQuery;
 
         public JoinBuilder On(params string[] conditions)
         {

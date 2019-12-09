@@ -46,9 +46,14 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         public override string Value => GetColumns();
 
         /// <summary>
+        /// Entire builded SQL query
+        /// </summary>
+        public string SqlQuery => ToSqlQueryBuilder().SqlQuery;
+
+        /// <summary>
         /// First column sorted with ascending direction
         /// </summary>
-        /// <param name="builder"></param>
+        /// <param name="builder">SQL query builder</param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
         internal static OrderByBuilder OrderBy(SqlQueryBuilder builder, string columnName)
@@ -59,7 +64,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <summary>
         /// First column sorted with descending direction
         /// </summary>
-        /// <param name="builder"></param>
+        /// <param name="builder">SQL query builder</param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
         internal static OrderByBuilder OrderByDesc(SqlQueryBuilder builder, string columnName)
@@ -87,9 +92,25 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             return Add(columnName, OrderDirection.Descending);
         }
 
+        /// <summary>
+        /// Method returns <see cref="SqlQueryBuilder"/>
+        /// </summary>
+        /// <returns></returns>
         public SqlQueryBuilder ToSqlQueryBuilder()
         {
             return m_builder.Add(WithKeyword(OrderByKey));
+        }
+
+        /// <summary>
+        /// Creates string value from column name and its sorting direction
+        /// </summary>
+        /// <param name="columnName">Name of column</param>
+        /// <param name="direction">Sorting direction</param>
+        /// <returns></returns>
+        private static string GetColumn(string columnName, OrderDirection direction)
+        {
+            var directionString = direction == OrderDirection.Ascending ? "ASC" : "DESC";
+            return $"{columnName} {directionString}";
         }
 
         /// <summary>
@@ -116,6 +137,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <returns></returns>
         private string GetColumns()
         {
+            //TODO Optimize. ASC or DESC is not necessary when all is same
             var columns = new List<string>();
             foreach (var columnName in m_columns.Keys)
             {
@@ -123,18 +145,6 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             }
 
             return columns.StringJoin(LLE.CommaSeparator);
-        }
-
-        /// <summary>
-        /// Creates string value from column name and its sorting direction
-        /// </summary>
-        /// <param name="columnName">Name of column</param>
-        /// <param name="direction">Sorting direction</param>
-        /// <returns></returns>
-        private string GetColumn(string columnName, OrderDirection direction)
-        {
-            var directionString = direction == OrderDirection.Ascending ? "ASC" : "DESC";
-            return $"{columnName} {directionString}";
         }
     }
 }
