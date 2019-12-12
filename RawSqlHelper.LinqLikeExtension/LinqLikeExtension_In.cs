@@ -14,7 +14,7 @@ namespace RawSqlHelper.LinqLikeExtension
             var sb = SqlQueryBuilder.Create()
                 .Select("typ, rok, cislo")
                 .From("vz")
-                .OuterJoin("ptpvz", "p").On("p.a=x.b and p.b=x").ToSqlQueryBuilder()
+                .OuterJoin("ptpvz", "p").On("p.a=x.b and p.b=x")
                 .Where("1=1 and")
                 .Fields("typ, rok, cislo")
                 .InValues(

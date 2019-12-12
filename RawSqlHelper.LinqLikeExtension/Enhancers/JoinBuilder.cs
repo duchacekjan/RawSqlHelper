@@ -5,7 +5,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
     /// <summary>
     /// Builder for 'JOIN' clause
     /// </summary>
-    public class JoinBuilder : AQueryPartBuilder
+    internal class JoinBuilder : SqlQueryBuilder
     {
         public const string JoinKey = "JOIN";
         public const string InnerKey = "INNER";
@@ -36,19 +36,27 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         }
 
         /// <summary>
-        /// Builded 'JOIN' statement
-        /// </summary>
-        public override string Value => GetValue();
-
-        /// <summary>
         /// Conditions for 'ON' part of 'JOIN' clause
         /// </summary>
         /// <param name="conditions"></param>
         /// <returns></returns>
-        public JoinBuilder On(params string[] conditions)
+        internal SqlQueryBuilder On(params string[] conditions)
         {
             m_on = conditions.StringJoin($" {AndKey} ");
             return this;
+        }
+
+        /// <summary>
+        /// Builds 'JOIN' statement
+        /// </summary>
+        /// <returns></returns>
+        protected override string GetPartQuery()
+        {
+            if (string.IsNullOrEmpty(m_on))
+            {
+                throw new RequiredPartNotDefinedException(OnKey);
+            }
+            return $"{m_keyWord} {m_tableName} {OnKey} {m_on}";
         }
 
         /// <summary>
@@ -97,19 +105,6 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             var keyword = $"{direction} {inner} {JoinKey}";
 
             return keyword.Trim();
-        }
-
-        /// <summary>
-        /// Builds 'JOIN' statement
-        /// </summary>
-        /// <returns></returns>
-        private string GetValue()
-        {
-            if (string.IsNullOrEmpty(m_on))
-            {
-                throw new RequiredPartNotDefinedException(OnKey);
-            }
-            return $"{m_keyWord} {m_tableName} {OnKey} {m_on}";
         }
     }
 }
