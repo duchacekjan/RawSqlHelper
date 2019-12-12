@@ -22,14 +22,15 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
         {
             var dbContext = new MyDbContext("DataSource=:memory:");
             dbContext.Open();
-            var join = LinqLikeBuilder.Select("Count(*)")
+            dbContext.CreateDatabase();
+            var sql = LinqLikeBuilder
+                .Select("t1.Id as Id, t1.Name as Name, t2.Address as Address")
                 .From("test", "t1")
-                .Join("test2", "t2");
-            var sql = join.On("t1.Id = t2.Id")
-                .Where("t2.Id > 1")
+                .Join("test2", "t2").On("t1.Id = t2.Id")
+                .OrderByDesc("Id")
                 .SqlQuery;
-            var result = dbContext.ExecuteScalar(sql);
-            Console.WriteLine($"Result = {result}");
+            dbContext.ExecuteQuery(sql);
+            //Console.WriteLine($"Result = {result}");
         }
     }
 }
