@@ -15,7 +15,7 @@ namespace RawSqlHelper
         /// Constructor
         /// </summary>
         /// <param name="entrySeparator">Defined entry separator</param>
-        private SqlQueryBuilder(EntrySeparator entrySeparator)
+        protected SqlQueryBuilder(EntrySeparator entrySeparator)
         {
             m_entrySeparator = entrySeparator;
         }
@@ -26,7 +26,7 @@ namespace RawSqlHelper
         public string SqlQuery => m_builder.ToString();
 
         /// <summary>
-        /// Creates new instance of <see cref="SqlStringBuilder"/>
+        /// Creates new instance of <see cref="SqlQueryBuilder"/>
         /// </summary>
         /// <param name="entrySeparator">Defined entry separator. Default value is AppendWithSpace</param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace RawSqlHelper
         }
 
         /// <summary>
-        /// Operator for merging two parts of query. EntrySeparator is set from first non null <see cref="SqlStringBuilder"/>
+        /// Operator for merging two parts of query. EntrySeparator is set from first non null <see cref="SqlQueryBuilder"/>
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
