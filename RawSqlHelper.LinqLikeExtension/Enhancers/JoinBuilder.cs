@@ -5,7 +5,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
     /// <summary>
     /// Builder for 'JOIN' clause
     /// </summary>
-    internal class JoinBuilder : SqlQueryBuilder
+    internal class JoinBuilder : LinqLikeBuilder
     {
         public const string JoinKey = "JOIN";
         public const string InnerKey = "INNER";
@@ -40,7 +40,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="conditions"></param>
         /// <returns></returns>
-        internal SqlQueryBuilder On(params string[] conditions)
+        internal LinqLikeBuilder On(params string[] conditions)
         {
             m_on = conditions.StringJoin($" {AndKey} ");
             return this;

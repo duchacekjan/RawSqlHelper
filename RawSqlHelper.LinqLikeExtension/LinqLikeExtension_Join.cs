@@ -6,166 +6,166 @@ namespace RawSqlHelper.LinqLikeExtension
     public static partial class LinqLikeExtension
     {
         #region Join
-        public static SqlQueryBuilder Join(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder Join(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, null, null, tableName, null, false);
         }
-        public static SqlQueryBuilder Join(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder Join(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, null, null, tableName, alias, false);
         }
-        public static SqlQueryBuilder JoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder JoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, null, null, tableName, null, true);
         }
-        public static SqlQueryBuilder JoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder JoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, null, null, tableName, alias, true);
         }
         #endregion
         #region LeftJoin
-        public static SqlQueryBuilder LeftJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder LeftJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, null, tableName, null, false);
         }
 
-        public static SqlQueryBuilder LeftJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder LeftJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, true, null, tableName, alias, false);
         }
 
-        public static SqlQueryBuilder LeftJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder LeftJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, null, tableName, null, true);
         }
 
-        public static SqlQueryBuilder LeftJoinSubSelect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder LeftJoinSubSelect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, true, null, tableName, alias, true);
         }
         #endregion
         #region LeftInnerJoin
-        public static SqlQueryBuilder LeftInnerJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder LeftInnerJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, true, tableName, null, false);
         }
-        public static SqlQueryBuilder LeftInnerJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder LeftInnerJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, true, true, tableName, alias, false);
         }
-        public static SqlQueryBuilder LeftInnerJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder LeftInnerJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, true, tableName, null, true);
         }
-        public static SqlQueryBuilder LeftInnerJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder LeftInnerJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, true, true, tableName, alias, true);
         }
         #endregion
         #region LeftOuterJoin
-        public static SqlQueryBuilder LeftOuterJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder LeftOuterJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, false, tableName, null, false);
         }
-        public static SqlQueryBuilder LeftOuterJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder LeftOuterJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, true, false, tableName, alias, false);
         }
-        public static SqlQueryBuilder LeftOuterJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder LeftOuterJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, true, false, tableName, null, true);
         }
-        public static SqlQueryBuilder LeftOuterJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder LeftOuterJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, true, false, tableName, alias, true);
         }
         #endregion
         #region RightJoin
-        public static SqlQueryBuilder RightJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder RightJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, false, null, tableName, null, false);
         }
-        public static SqlQueryBuilder RightJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder RightJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, false, null, tableName, alias, false);
         }
-        public static SqlQueryBuilder RightJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder RightJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, false, null, tableName, null, true);
         }
-        public static SqlQueryBuilder RightJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder RightJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, false, null, tableName, alias, true);
         }
         #endregion
         #region RightInnerJoin
-        public static SqlQueryBuilder RightInnerJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder RightInnerJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, false, true, tableName, null, false);
         }
-        public static SqlQueryBuilder RightInnerJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder RightInnerJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, false, true, tableName, alias, false);
         }
-        public static SqlQueryBuilder RightInnerJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder RightInnerJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, false, true, tableName, null, true);
         }
-        public static SqlQueryBuilder RightInnerJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder RightInnerJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, false, true, tableName, alias, true);
         }
         #endregion
         #region RightOuterJoin
-        public static SqlQueryBuilder RightOuterJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder RightOuterJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, false, false, tableName, null, false);
         }
-        public static SqlQueryBuilder RightOuterJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder RightOuterJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, false, false, tableName, alias, false);
         }
-        public static SqlQueryBuilder RightOuterJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder RightOuterJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, false, false, tableName, null, true);
         }
-        public static SqlQueryBuilder RightOuterJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder RightOuterJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, false, false, tableName, alias, true);
         }
         #endregion
         #region InnerJoin
-        public static SqlQueryBuilder InnerJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder InnerJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, null, true, tableName, null, false);
         }
-        public static SqlQueryBuilder InnerJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder InnerJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, null, true, tableName, alias, false);
         }
-        public static SqlQueryBuilder InnerJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder InnerJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, null, true, tableName, null, true);
         }
-        public static SqlQueryBuilder InnerJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder InnerJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, null, true, tableName, alias, true);
         }
         #endregion
         #region OuterJoin
-        public static SqlQueryBuilder OuterJoin(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder OuterJoin(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, null, false, tableName, null, false);
         }
-        public static SqlQueryBuilder OuterJoin(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder OuterJoin(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, null, false, tableName, alias, false);
         }
-        public static SqlQueryBuilder OuterJoinSubselect(this SqlQueryBuilder builder, string tableName)
+        public static e.LinqLikeBuilder OuterJoinSubselect(this e.LinqLikeBuilder builder, string tableName)
         {
             return new e.JoinBuilder(builder, null, false, tableName, null, true);
         }
-        public static SqlQueryBuilder OuterJoinSubselect(this SqlQueryBuilder builder, string tableName, string alias)
+        public static e.LinqLikeBuilder OuterJoinSubselect(this e.LinqLikeBuilder builder, string tableName, string alias)
         {
             return new e.JoinBuilder(builder, null, false, tableName, alias, true);
         }
@@ -177,7 +177,7 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="builder"></param>
         /// <param name="conditions"></param>
         /// <returns></returns>
-        public static SqlQueryBuilder On(this SqlQueryBuilder builder, params string[] conditions)
+        public static e.LinqLikeBuilder On(this e.LinqLikeBuilder builder, params string[] conditions)
         {
             if (builder is e.JoinBuilder joinBuilder)
             {

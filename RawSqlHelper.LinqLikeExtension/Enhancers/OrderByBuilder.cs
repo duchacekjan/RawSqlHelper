@@ -3,7 +3,7 @@ using LLE = RawSqlHelper.LinqLikeExtension.LinqLikeExtension;
 
 namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
-    internal class OrderByBuilder : SqlQueryBuilder
+    internal class OrderByBuilder : LinqLikeBuilder
     {
         internal const string OrderByKey = "ORDER BY";
         private readonly Dictionary<string, OrderDirection> m_columns = new Dictionary<string, OrderDirection>();
@@ -35,7 +35,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="builder">SQL query builder</param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        internal static SqlQueryBuilder OrderBy(SqlQueryBuilder builder, string columnName)
+        internal static LinqLikeBuilder OrderBy(SqlQueryBuilder builder, string columnName)
         {
             return new OrderByBuilder(builder, columnName, OrderDirection.Ascending);
         }
@@ -46,7 +46,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="builder">SQL query builder</param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        internal static SqlQueryBuilder OrderByDesc(SqlQueryBuilder builder, string columnName)
+        internal static LinqLikeBuilder OrderByDesc(SqlQueryBuilder builder, string columnName)
         {
             return new OrderByBuilder(builder, columnName, OrderDirection.Descending);
         }
@@ -56,7 +56,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        internal SqlQueryBuilder ThenBy(string columnName)
+        internal LinqLikeBuilder ThenBy(string columnName)
         {
             return Add(columnName, OrderDirection.Ascending);
         }
@@ -66,7 +66,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        internal SqlQueryBuilder ThenByDesc(string columnName)
+        internal LinqLikeBuilder ThenByDesc(string columnName)
         {
             return Add(columnName, OrderDirection.Descending);
         }

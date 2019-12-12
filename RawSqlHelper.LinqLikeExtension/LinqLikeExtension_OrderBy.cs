@@ -13,10 +13,10 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="builder"></param>
         /// <param name="columns">Names of columns with directions of sorting</param>
         /// <returns></returns>
-        public static SqlQueryBuilder OrderByRaw(this SqlQueryBuilder builder, params string[] columns)
+        public static e.LinqLikeBuilder OrderByRaw(this e.LinqLikeBuilder builder, params string[] columns)
         {
             var statement = string.Join(CommaSeparator, columns);
-            return builder.Add($"{OrderByKey} {statement}");
+            return (e.LinqLikeBuilder)builder.Add($"{OrderByKey} {statement}");
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="builder"></param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, string columnName)
+        public static e.LinqLikeBuilder OrderBy(this e.LinqLikeBuilder builder, string columnName)
         {
             return e.OrderByBuilder.OrderBy(builder, columnName);
         }
@@ -37,7 +37,7 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
         /// <returns></returns>
-        public static SqlQueryBuilder OrderByDesc(this SqlQueryBuilder builder, string columnName)
+        public static e.LinqLikeBuilder OrderByDesc(this e.LinqLikeBuilder builder, string columnName)
         {
             return e.OrderByBuilder.OrderByDesc(builder, columnName);
         }
@@ -48,7 +48,7 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="builder"></param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public static SqlQueryBuilder ThenBy(this SqlQueryBuilder builder, string columnName)
+        public static e.LinqLikeBuilder ThenBy(this e.LinqLikeBuilder builder, string columnName)
         {
             if (builder is e.OrderByBuilder orderBuilder)
             {
@@ -64,7 +64,7 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="builder"></param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public static SqlQueryBuilder ThenByDesc(this SqlQueryBuilder builder, string columnName)
+        public static e.LinqLikeBuilder ThenByDesc(this e.LinqLikeBuilder builder, string columnName)
         {
             if (builder is e.OrderByBuilder orderBuilder)
             {
