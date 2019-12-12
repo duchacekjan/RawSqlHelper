@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace RawSqlHelper.LinqLikeExtension.Demo
 {
     public class MyDbContext
     {
         private readonly SqliteConnection m_connection;
+        private bool m_isInit;
 
         public MyDbContext(string connectionString)
         {
@@ -20,6 +20,7 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
 
         public void CreateDatabase()
         {
+            m_isInit = true;
             ExecuteNonQuery("CREATE TABLE test (Id int PRIMARY KEY, Name varchar(255))");
             ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (1, 'test')");
             ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (2, 'test2')");
@@ -28,7 +29,11 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
             ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (1, 'address')");
             ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (2, 'address2')");
             ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (4, 'address4')");
-            Console.WriteLine("DatabaseCreated\r\n");
+
+            m_isInit = false;
+            Console.WriteLine("\r\nDatabaseCreated. Press any key to continue...\r\n");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public int ExecuteNonQuery(string query)
@@ -47,6 +52,9 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
         {
             using var cmd = CreateCmd(query);
             using var reader = cmd.ExecuteReader();
+            Console.WriteLine("\r\nResult:");
+            var original = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             while (reader.Read())
             {
                 var row = new List<string>(reader.FieldCount);
@@ -57,6 +65,7 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
 
                 Console.WriteLine(string.Join("\t", row));
             }
+            Console.ForegroundColor = original;
         }
 
         private SqliteCommand CreateCmd(string query)
@@ -68,7 +77,12 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
 
         private void Log(string sql)
         {
+            var original = Console.ForegroundColor;
+            Console.ForegroundColor = m_isInit
+                ? ConsoleColor.Cyan
+                : ConsoleColor.Green;
             Console.WriteLine($"SQL: {sql}");
+            Console.ForegroundColor = original;
         }
     }
 }
