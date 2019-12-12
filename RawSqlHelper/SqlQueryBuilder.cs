@@ -8,6 +8,7 @@ namespace RawSqlHelper
     public class SqlQueryBuilder
     {
         protected const string Space = " ";
+        protected bool? IsPartRead;
         private readonly EntrySeparator m_entrySeparator;
         private readonly StringBuilder m_builder = new StringBuilder();
 
@@ -24,6 +25,7 @@ namespace RawSqlHelper
             : this(builder.m_entrySeparator)
         {
             Add(builder);
+            IsPartRead = false;
         }
 
         /// <summary>
@@ -98,15 +100,6 @@ namespace RawSqlHelper
             return Add(builder.SqlQuery);
         }
 
-        ///// <summary>
-        ///// Adds content of builder
-        ///// </summary>
-        ///// <param name="builder">Builder</param>
-        //public SqlQueryBuilder Add(AQueryPartBuilder builder)
-        //{
-        //    return Add(builder.Value);
-        //}
-
         /// <summary>
         /// Adds new entry of sql query with parameters to replace
         /// </summary>
@@ -115,6 +108,7 @@ namespace RawSqlHelper
         /// <returns></returns>
         public SqlQueryBuilder AddWithParameters(string row, params object[] args)
         {
+            AppendPartOfQuery();
             if (!string.IsNullOrEmpty(row))
             {
                 var value = string.Format(row, args)
@@ -146,20 +140,39 @@ namespace RawSqlHelper
             return SqlQuery;
         }
 
-        protected string GetSqlQuery()
-        {
-            var part = GetPartQuery();
-            if(!string.IsNullOrEmpty(part))
-            {
-                Add(part);
-            }
-
-            return m_builder.ToString();
-        }
-
+        /// <summary>
+        /// Constructs part of query
+        /// </summary>
+        /// <returns></returns>
         protected virtual string GetPartQuery()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Builds resulted SQL query
+        /// </summary>
+        /// <returns></returns>
+        private string GetSqlQuery()
+        {
+            AppendPartOfQuery();
+            return m_builder.ToString();
+        }
+
+        /// <summary>
+        /// Adds part of query
+        /// </summary>
+        private void AppendPartOfQuery()
+        {
+            if (IsPartRead == false)
+            {
+                var part = GetPartQuery();
+                if (!string.IsNullOrEmpty(part))
+                {
+                    IsPartRead = true;
+                    Add(part);
+                }
+            }
         }
     }
 }

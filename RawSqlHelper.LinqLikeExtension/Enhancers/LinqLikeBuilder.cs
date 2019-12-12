@@ -9,6 +9,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
     {
         public const string SelectKey = "SELECT";
         public const string FromKey = "FROM";
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -47,7 +48,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="tableName">Table name for 'FROM' clause</param>
         /// <returns></returns>
-        public SqlQueryBuilder From(string tableName)
+        public LinqLikeBuilder From(string tableName)
         {
             return From(tableName, null);
         }
@@ -58,7 +59,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="tableName">Table name for 'FROM' clause</param>
         /// <param name="alias"></param>
         /// <returns></returns>
-        public SqlQueryBuilder From(string tableName, string alias)
+        public LinqLikeBuilder From(string tableName, string alias)
         {
             if (string.IsNullOrEmpty(tableName))
             {
@@ -66,8 +67,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             }
 
             var from = $"{FromKey} {tableName} {alias}".Trim();
-            Add(from);
-            return this;
+            return (LinqLikeBuilder)Add(from);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="subselect">Table name for 'FROM' clause</param>
         /// <param name="wrapInBrackets">Subselect will be wrapped in brackets</param>
         /// <returns></returns>
-        public SqlQueryBuilder FromSubselect(string subselect, bool wrapInBrackets = true)
+        public LinqLikeBuilder FromSubselect(string subselect, bool wrapInBrackets = true)
         {
             if (string.IsNullOrEmpty(subselect))
             {
@@ -93,7 +93,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="alias">Subselect alias</param>
         /// <param name="wrapInBrackets">Subselect will be wrapped in brackets</param>
         /// <returns></returns>
-        public SqlQueryBuilder FromSubselect(string subselect, string alias, bool wrapInBrackets = true)
+        public LinqLikeBuilder FromSubselect(string subselect, string alias, bool wrapInBrackets = true)
         {
             if (string.IsNullOrEmpty(subselect))
             {
@@ -107,6 +107,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             }
 
             return From(part, alias);
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }

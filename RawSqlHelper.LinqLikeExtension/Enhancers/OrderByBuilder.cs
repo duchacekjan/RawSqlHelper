@@ -7,10 +7,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
     {
         internal const string OrderByKey = "ORDER BY";
         private readonly Dictionary<string, OrderDirection> m_columns = new Dictionary<string, OrderDirection>();
+
         protected OrderByBuilder(SqlQueryBuilder builder, string columnName, OrderDirection direction)
             : base(builder)
         {
-            Add(columnName, direction);
+            AddColumn(columnName, direction);
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <returns></returns>
         internal LinqLikeBuilder ThenBy(string columnName)
         {
-            return Add(columnName, OrderDirection.Ascending);
+            return AddColumn(columnName, OrderDirection.Ascending);
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <returns></returns>
         internal LinqLikeBuilder ThenByDesc(string columnName)
         {
-            return Add(columnName, OrderDirection.Descending);
+            return AddColumn(columnName, OrderDirection.Descending);
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="columnName">Name of column</param>
         /// <param name="direction">Sorting direction</param>
         /// <returns></returns>
-        private OrderByBuilder Add(string columnName, OrderDirection direction)
+        private OrderByBuilder AddColumn(string columnName, OrderDirection direction)
         {
             if (string.IsNullOrEmpty(columnName))
             {
@@ -130,6 +131,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             }
 
             return columns.StringJoin(LLE.CommaSeparator);
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="alias"></param>
         /// <param name="isSubSelect"></param>
         internal JoinBuilder(SqlQueryBuilder builder, bool? isLeft, bool? isInner, string tableName, string alias, bool isSubSelect)
-            :base(builder)
+            : base(builder)
         {
             m_keyWord = CreateKeyword(isLeft, isInner);
             m_tableName = CreateTableWithAlias(tableName, alias, isSubSelect);
@@ -47,7 +47,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         }
 
         /// <summary>
-        /// Builds 'JOIN' statement
+        /// Creates 'ORDER BY' statement
         /// </summary>
         /// <returns></returns>
         protected override string GetPartQuery()
@@ -56,6 +56,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             {
                 throw new RequiredPartNotDefinedException(OnKey);
             }
+
             return $"{m_keyWord} {m_tableName} {OnKey} {m_on}";
         }
 
@@ -105,6 +106,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             var keyword = $"{direction} {inner} {JoinKey}";
 
             return keyword.Trim();
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }
