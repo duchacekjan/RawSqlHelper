@@ -7,7 +7,7 @@ namespace RawSqlHelper
     /// </summary>
     public class SqlQueryBuilder
     {
-        private const string Space = " ";
+        protected const string Space = " ";
         private readonly EntrySeparator m_entrySeparator;
         private readonly StringBuilder m_builder = new StringBuilder();
 
@@ -15,15 +15,21 @@ namespace RawSqlHelper
         /// Constructor
         /// </summary>
         /// <param name="entrySeparator">Defined entry separator</param>
-        protected SqlQueryBuilder(EntrySeparator entrySeparator)
+        private SqlQueryBuilder(EntrySeparator entrySeparator)
         {
             m_entrySeparator = entrySeparator;
+        }
+
+        protected SqlQueryBuilder(SqlQueryBuilder builder)
+            : this(builder.m_entrySeparator)
+        {
+            Add(builder);
         }
 
         /// <summary>
         /// Builded SQL query
         /// </summary>
-        public string SqlQuery => m_builder.ToString();
+        public string SqlQuery => GetSqlQuery();
 
         /// <summary>
         /// Creates new instance of <see cref="SqlQueryBuilder"/>
@@ -92,14 +98,14 @@ namespace RawSqlHelper
             return Add(builder.SqlQuery);
         }
 
-        /// <summary>
-        /// Adds content of builder
-        /// </summary>
-        /// <param name="builder">Builder</param>
-        public SqlQueryBuilder Add(AQueryPartBuilder builder)
-        {
-            return Add(builder.Value);
-        }
+        ///// <summary>
+        ///// Adds content of builder
+        ///// </summary>
+        ///// <param name="builder">Builder</param>
+        //public SqlQueryBuilder Add(AQueryPartBuilder builder)
+        //{
+        //    return Add(builder.Value);
+        //}
 
         /// <summary>
         /// Adds new entry of sql query with parameters to replace
@@ -138,6 +144,22 @@ namespace RawSqlHelper
         public override string ToString()
         {
             return SqlQuery;
+        }
+
+        protected string GetSqlQuery()
+        {
+            var part = GetPartQuery();
+            if(!string.IsNullOrEmpty(part))
+            {
+                Add(part);
+            }
+
+            return m_builder.ToString();
+        }
+
+        protected virtual string GetPartQuery()
+        {
+            return null;
         }
     }
 }
