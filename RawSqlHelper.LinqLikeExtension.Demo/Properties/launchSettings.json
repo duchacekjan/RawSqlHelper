@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RawSqlHelper.LinqLikeExtension.Demo": {
+      "commandName": "Project",
+      "commandLineArgs": "test.db"
+    }
+  }
+}

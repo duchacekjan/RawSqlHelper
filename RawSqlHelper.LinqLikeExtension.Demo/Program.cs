@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using RawSqlHelper.LinqLikeExtension.Enhancers;
 
 namespace RawSqlHelper.LinqLikeExtension.Demo
@@ -9,7 +10,8 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
         {
             try
             {
-                TestDB();
+                var db = args.FirstOrDefault();
+                TestDB(db);
             }
             catch (Exception e)
             {
@@ -18,9 +20,12 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
             Console.ReadKey();
         }
 
-        private static void TestDB()
+        private static void TestDB(string fileName)
         {
-            var dbContext = new MyDbContext("DataSource=:memory:");
+            var dataSource = string.IsNullOrEmpty(fileName)
+                ? ":memory:"
+                : fileName;
+            var dbContext = new MyDbContext($"DataSource={dataSource}");
             dbContext.Open();
             dbContext.CreateDatabase();
             var sql = LinqLikeBuilder

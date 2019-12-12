@@ -21,14 +21,19 @@ namespace RawSqlHelper.LinqLikeExtension.Demo
         public void CreateDatabase()
         {
             m_isInit = true;
-            ExecuteNonQuery("CREATE TABLE test (Id int PRIMARY KEY, Name varchar(255))");
-            ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (1, 'test')");
-            ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (2, 'test2')");
-            ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (3, 'test3')");
-            ExecuteNonQuery("CREATE TABLE test2 (Id int PRIMARY KEY, Address varchar(255))");
-            ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (1, 'address')");
-            ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (2, 'address2')");
-            ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (4, 'address4')");
+            if (ExecuteNonQuery("CREATE TABLE IF NOT EXISTS test (Id int PRIMARY KEY, Name varchar(255))") > 0)
+            {
+                ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (1, 'test')");
+                ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (2, 'test2')");
+                ExecuteNonQuery("INSERT INTO test(Id, Name) VALUES (3, 'test3')");
+            }
+
+            if (ExecuteNonQuery("CREATE TABLE IF NOT EXISTS test2 (Id int PRIMARY KEY, Address varchar(255))") > 0)
+            {
+                ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (1, 'address')");
+                ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (2, 'address2')");
+                ExecuteNonQuery("INSERT INTO test2(Id, Address) VALUES (4, 'address4')");
+            }
 
             m_isInit = false;
             Console.WriteLine("\r\nDatabaseCreated. Press any key to continue...\r\n");
