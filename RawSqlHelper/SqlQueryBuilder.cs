@@ -7,7 +7,8 @@ namespace RawSqlHelper
     /// </summary>
     public class SqlQueryBuilder
     {
-        private const string Space = " ";
+        protected const string Space = " ";
+        protected bool? IsPartRead;
         private readonly EntrySeparator m_entrySeparator;
         private readonly StringBuilder m_builder = new StringBuilder();
 
@@ -20,13 +21,20 @@ namespace RawSqlHelper
             m_entrySeparator = entrySeparator;
         }
 
+        protected SqlQueryBuilder(SqlQueryBuilder builder)
+            : this(builder.m_entrySeparator)
+        {
+            Add(builder);
+            IsPartRead = false;
+        }
+
         /// <summary>
         /// Builded SQL query
         /// </summary>
-        public string SqlQuery => m_builder.ToString();
+        public string SqlQuery => GetSqlQuery();
 
         /// <summary>
-        /// Creates new instance of <see cref="SqlStringBuilder"/>
+        /// Creates new instance of <see cref="SqlQueryBuilder"/>
         /// </summary>
         /// <param name="entrySeparator">Defined entry separator. Default value is AppendWithSpace</param>
         /// <returns></returns>
@@ -36,7 +44,7 @@ namespace RawSqlHelper
         }
 
         /// <summary>
-        /// Operator for merging two parts of query. EntrySeparator is set from first non null <see cref="SqlStringBuilder"/>
+        /// Operator for merging two parts of query. EntrySeparator is set from first non null <see cref="SqlQueryBuilder"/>
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -93,15 +101,6 @@ namespace RawSqlHelper
         }
 
         /// <summary>
-        /// Adds content of builder
-        /// </summary>
-        /// <param name="builder">Builder</param>
-        public SqlQueryBuilder Add(AQueryPartBuilder builder)
-        {
-            return Add(builder.Value);
-        }
-
-        /// <summary>
         /// Adds new entry of sql query with parameters to replace
         /// </summary>
         /// <param name="row">Entry of sql query with parameters to replace</param>
@@ -109,6 +108,7 @@ namespace RawSqlHelper
         /// <returns></returns>
         public SqlQueryBuilder AddWithParameters(string row, params object[] args)
         {
+            AppendPartOfQuery();
             if (!string.IsNullOrEmpty(row))
             {
                 var value = string.Format(row, args)
@@ -138,6 +138,41 @@ namespace RawSqlHelper
         public override string ToString()
         {
             return SqlQuery;
+        }
+
+        /// <summary>
+        /// Constructs part of query
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetPartQuery()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Builds resulted SQL query
+        /// </summary>
+        /// <returns></returns>
+        private string GetSqlQuery()
+        {
+            AppendPartOfQuery();
+            return m_builder.ToString();
+        }
+
+        /// <summary>
+        /// Adds part of query
+        /// </summary>
+        private void AppendPartOfQuery()
+        {
+            if (IsPartRead == false)
+            {
+                var part = GetPartQuery();
+                if (!string.IsNullOrEmpty(part))
+                {
+                    IsPartRead = true;
+                    Add(part);
+                }
+            }
         }
     }
 }

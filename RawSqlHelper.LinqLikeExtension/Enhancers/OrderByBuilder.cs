@@ -3,24 +3,15 @@ using LLE = RawSqlHelper.LinqLikeExtension.LinqLikeExtension;
 
 namespace RawSqlHelper.LinqLikeExtension.Enhancers
 {
-    /// <summary>
-    /// Builder for creating 'ORDER BY' clause
-    /// </summary>
-    public class OrderByBuilder : AQueryPartBuilder
+    internal class OrderByBuilder : LinqLikeBuilder
     {
-        public const string OrderByKey = "ORDER BY";
+        internal const string OrderByKey = "ORDER BY";
         private readonly Dictionary<string, OrderDirection> m_columns = new Dictionary<string, OrderDirection>();
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="columnName"></param>
-        /// <param name="direction"></param>
         protected OrderByBuilder(SqlQueryBuilder builder, string columnName, OrderDirection direction)
             : base(builder)
         {
-            Add(columnName, direction);
+            AddColumn(columnName, direction);
         }
 
         /// <summary>
@@ -40,17 +31,12 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         }
 
         /// <summary>
-        /// Parameters for 'ORDER BY'
-        /// </summary>
-        public override string Value => GetValue();
-
-        /// <summary>
         /// First column sorted with ascending direction
         /// </summary>
         /// <param name="builder">SQL query builder</param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        internal static OrderByBuilder OrderBy(SqlQueryBuilder builder, string columnName)
+        internal static LinqLikeBuilder OrderBy(SqlQueryBuilder builder, string columnName)
         {
             return new OrderByBuilder(builder, columnName, OrderDirection.Ascending);
         }
@@ -61,7 +47,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="builder">SQL query builder</param>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        internal static OrderByBuilder OrderByDesc(SqlQueryBuilder builder, string columnName)
+        internal static LinqLikeBuilder OrderByDesc(SqlQueryBuilder builder, string columnName)
         {
             return new OrderByBuilder(builder, columnName, OrderDirection.Descending);
         }
@@ -71,9 +57,9 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public OrderByBuilder ThenBy(string columnName)
+        internal LinqLikeBuilder ThenBy(string columnName)
         {
-            return Add(columnName, OrderDirection.Ascending);
+            return AddColumn(columnName, OrderDirection.Ascending);
         }
 
         /// <summary>
@@ -81,9 +67,24 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// </summary>
         /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public OrderByBuilder ThenByDesc(string columnName)
+        internal LinqLikeBuilder ThenByDesc(string columnName)
         {
-            return Add(columnName, OrderDirection.Descending);
+            return AddColumn(columnName, OrderDirection.Descending);
+        }
+
+        /// <summary>
+        /// Creates 'ORDER BY' statement
+        /// </summary>
+        /// <returns></returns>
+        protected override string GetPartQuery()
+        {
+            var columns = GetColumns();
+            if (string.IsNullOrEmpty(columns))
+            {
+                throw new RequiredPartNotDefinedException(OrderByKey);
+            }
+
+            return $"{OrderByKey} {columns}";
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
         /// <param name="columnName">Name of column</param>
         /// <param name="direction">Sorting direction</param>
         /// <returns></returns>
-        private OrderByBuilder Add(string columnName, OrderDirection direction)
+        private OrderByBuilder AddColumn(string columnName, OrderDirection direction)
         {
             if (string.IsNullOrEmpty(columnName))
             {
@@ -113,21 +114,6 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
 
             m_columns.Add(columnName, direction);
             return this;
-        }
-
-        /// <summary>
-        /// Creates 'ORDER BY' statement
-        /// </summary>
-        /// <returns></returns>
-        private string GetValue()
-        {
-            var columns = GetColumns();
-            if (string.IsNullOrEmpty(columns))
-            {
-                throw new RequiredPartNotDefinedException(OrderByKey);
-            }
-
-            return $"{OrderByKey} {columns}";
         }
 
         /// <summary>
@@ -145,6 +131,11 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             }
 
             return columns.StringJoin(LLE.CommaSeparator);
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }

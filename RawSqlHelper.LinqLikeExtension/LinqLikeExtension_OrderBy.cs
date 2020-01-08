@@ -1,4 +1,5 @@
-﻿using e = RawSqlHelper.LinqLikeExtension.Enhancers;
+﻿using System;
+using e = RawSqlHelper.LinqLikeExtension.Enhancers;
 
 namespace RawSqlHelper.LinqLikeExtension
 {
@@ -12,37 +13,65 @@ namespace RawSqlHelper.LinqLikeExtension
         /// <param name="builder"></param>
         /// <param name="columns">Names of columns with directions of sorting</param>
         /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, params string[] columns)
+        public static e.LinqLikeBuilder OrderByRaw(this e.LinqLikeBuilder builder, params string[] columns)
         {
             var statement = string.Join(CommaSeparator, columns);
-            return builder.Add($"{OrderByKey} {statement}");
+            return (e.LinqLikeBuilder)builder.Add($"{OrderByKey} {statement}");
         }
 
         /// <summary>
-        /// Adds 'ORDER BY' statement with parameters created in <paramref name="orderByBuilder"/>
+        /// Ascending order by column
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="orderByBuilder">Parameter builder</param>
+        /// <param name="columnName">Name of column</param>
         /// <returns></returns>
-        public static SqlQueryBuilder OrderBy(this SqlQueryBuilder builder, e.OrderByBuilder orderByBuilder)
-        {
-            if (orderByBuilder == null)
-            {
-                throw new System.ArgumentNullException(nameof(orderByBuilder));
-            }
-
-            var orderBy = orderByBuilder.WithKeyword(OrderByKey);
-            return builder.Add(orderBy);
-        }
-
-        public static e.OrderByBuilder OrderBy(this SqlQueryBuilder builder, string columnName)
+        public static e.LinqLikeBuilder OrderBy(this e.LinqLikeBuilder builder, string columnName)
         {
             return e.OrderByBuilder.OrderBy(builder, columnName);
         }
 
-        public static e.OrderByBuilder OrderByDesc(this SqlQueryBuilder builder, string columnName)
+        /// <summary>
+        /// Descending order by column
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="columnName">Name of column</param>
+        /// <returns></returns>
+        /// <returns></returns>
+        public static e.LinqLikeBuilder OrderByDesc(this e.LinqLikeBuilder builder, string columnName)
         {
             return e.OrderByBuilder.OrderByDesc(builder, columnName);
+        }
+
+        /// <summary>
+        /// Ascending order by next column
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="columnName">Name of column</param>
+        /// <returns></returns>
+        public static e.LinqLikeBuilder ThenBy(this e.LinqLikeBuilder builder, string columnName)
+        {
+            if (builder is e.OrderByBuilder orderBuilder)
+            {
+                return orderBuilder.ThenBy(columnName);
+            }
+
+            throw new NotSupportedException();
+        }
+
+        /// <summary>
+        /// Descending order by next column
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="columnName">Name of column</param>
+        /// <returns></returns>
+        public static e.LinqLikeBuilder ThenByDesc(this e.LinqLikeBuilder builder, string columnName)
+        {
+            if (builder is e.OrderByBuilder orderBuilder)
+            {
+                return orderBuilder.ThenByDesc(columnName);
+            }
+
+            throw new NotSupportedException();
         }
     }
 }

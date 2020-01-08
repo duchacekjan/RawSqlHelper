@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha09" />
+    <PackageReference Include="RawSqlHelper" Version="1.0.0-alpha15" />
   </ItemGroup>
 
 </Project>
