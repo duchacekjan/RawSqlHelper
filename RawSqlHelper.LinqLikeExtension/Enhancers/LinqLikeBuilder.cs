@@ -83,7 +83,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
                 throw new System.ArgumentNullException(nameof(subselect));
             }
 
-            return FromSubselect(subselect.Brackets(), null, wrapInBrackets);
+            return FromSubselect(subselect, null, wrapInBrackets);
         }
 
         /// <summary>
