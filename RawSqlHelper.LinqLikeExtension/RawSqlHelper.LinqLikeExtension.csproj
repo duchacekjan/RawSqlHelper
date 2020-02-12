@@ -9,11 +9,11 @@
     <Description>Extension for SqlQueryBuilder. Enables writes linq like methods</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
-    <Version>1.0.0-prerelease</Version>
+    <Version>1.0.0</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
     <PackageIcon>LinqLikeExtension.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>Added WHERE clause</PackageReleaseNotes>
+    <PackageReleaseNotes>Provides LINQ like feel to raw sql</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/duchacekjan/RawSqlHelper.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -35,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RawSqlHelper\RawSqlHelper.csproj" />
+    <PackageReference Include="RawSqlHelper" Version="1.0.0" />
   </ItemGroup>
-
 </Project>
