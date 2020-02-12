@@ -19,10 +19,6 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
     <None Include="licence.txt">
       <Pack>True</Pack>
@@ -34,7 +30,10 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
     <PackageReference Include="RawSqlHelper" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup  Condition="'$(Configuration)'=='Debug'">
+    <ProjectReference Include="..\RawSqlHelper\RawSqlHelper.csproj" />
   </ItemGroup>
 </Project>
