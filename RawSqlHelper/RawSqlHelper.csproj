@@ -9,7 +9,7 @@
     <Description>Helper for building sql query from string</Description>
     <Copyright>Jan Duchacek</Copyright>
     <PackageProjectUrl>https://github.com/duchacekjan/RawSqlHelper</PackageProjectUrl>
-    <Version>1.0.0-alpha16</Version>
+    <Version>1.0.0-rc</Version>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
     <PackageIcon>SQL Icon.png</PackageIcon>
     <PackageIconUrl />
