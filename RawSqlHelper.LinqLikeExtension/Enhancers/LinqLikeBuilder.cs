@@ -9,6 +9,7 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
     {
         public const string SelectKey = "SELECT";
         public const string FromKey = "FROM";
+        public const string WhereKey = "WHERE";
 
         /// <summary>
         /// Constructor
@@ -107,6 +108,22 @@ namespace RawSqlHelper.LinqLikeExtension.Enhancers
             }
 
             return From(part, alias);
+        }
+
+        /// <summary>
+        /// Adds 'WHERE' statement.
+        /// </summary>
+        /// <param name="condition">Condition part of 'WHERE' clause</param>
+        /// <returns></returns>
+        public LinqLikeBuilder Where(string condition)
+        {
+            if (string.IsNullOrEmpty(condition))
+            {
+                throw new System.ArgumentNullException(nameof(condition));
+            }
+
+            var where = $"{WhereKey} {condition}".Trim();
+            return (LinqLikeBuilder)Add(where);
         }
 
         public override string ToString()
