@@ -3,7 +3,9 @@ Helper for building raw SQL queries.
 LinqLike feel is provided by `RawSqlHelper.LinqLikeExtensions`
 
 ## RawSqlHelper Build status
-[![Build status](https://ci.appveyor.com/api/projects/status/d8kypvjwk83778vs?svg=true)](https://ci.appveyor.com/project/duchacekjan/rawsqlhelper)
+[![AppVeyor](https://img.shields.io/appveyor/build/duchacekjan/rawsqlhelper?logo=appveyor&logoColor=white)](https://ci.appveyor.com/project/duchacekjan/rawsqlhelper)
+[![Nuget](https://img.shields.io/nuget/v/RawSqlHelper?logo=nuget)](https://www.nuget.org/packages/RawSqlHelper/)
 
 ## RawSqlHelper.LinqLikeExtensions Build status
-[![Build status](https://ci.appveyor.com/api/projects/status/fduu1ygefayveqpr?svg=true)](https://ci.appveyor.com/project/duchacekjan/rawsqlhelper-linqlikeextensions)
+[![AppVeyor](https://img.shields.io/appveyor/build/duchacekjan/rawsqlhelper-linqlikeextensions?logo=appveyor&logoColor=white)](https://ci.appveyor.com/project/duchacekjan/rawsqlhelper-linqlikeextensions)
+[![Nuget](https://img.shields.io/nuget/v/RawSqlHelper.LinqLikeExtension?logo=nuget)](https://www.nuget.org/packages/RawSqlHelper.LinqLikeExtension/)
